@@ -33,15 +33,20 @@ public class Board {
       Player player = getPlayer();
       int direction = player.direction;
       player.direction = (direction + 1) % 4;
+      println(player.direction);
     } else if (function.equals(Function.TURN_RIGHT.getName())) {
       Player player = getPlayer();
       int direction = player.direction;
-      player.direction = (direction - 1) % 4;
+      player.direction = direction - 1;
+      player.direction = player.direction == -1 ? 3 : player.direction;
+      println(player.direction);
     } else if (function.equals(Function.GRAB.getName())) {
       Player player = getPlayer();
       int[] coordinates = player.getCoordinatesInFront();
       if (board[coordinates[0]][coordinates[1]] instanceof Item) {
         player.pickUpItem((Item) board[coordinates[0]][coordinates[1]]);
+        Block block = new Block(true, coordinates[0], coordinates[1]);
+        board[coordinates[0]][coordinates[1]] = block;
       } else {
         //Display message in console saying item not found
         return "Empty";
@@ -71,9 +76,9 @@ public class Board {
   }
 
   private void movePlayer(int row, int column, Player player) {
-    if (board[row][column] instanceof Wall) {
+    if (board[row][column] instanceof Wall || row < 0 || column < 0) {
       throw new UncheckedException("Cannot move!");
-    }
+    } else {
     playerRow = row;
     playerCol = column;
     int oldRow = player.row;
@@ -82,6 +87,7 @@ public class Board {
     player.row = row;
     player.col = column;
     board[row][column] = player;
+    }
   }
 
   public void generateMaze() {
