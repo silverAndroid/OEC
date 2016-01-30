@@ -127,7 +127,7 @@ public void controlEvent(ControlEvent theEvent)
 //Method that handles the text input for user code
 void keyPressed()
 {
-  if (key != BACKSPACE)
+  if ( key >= 97 && key <= 122 || key == ENTER)
   {
     sb.append( key );
     inTextarea.setText( sb.toString() );
@@ -160,4 +160,9 @@ public void Run()
   String input = cp5.get(Textarea.class,"in").getText();
   
   String lines[] = input.split("\\r?\\n");
+  
+  for(int i = 0; i < lines.length; i++)
+  {
+    println(lines[i]);
+  }
 }
