@@ -17,7 +17,7 @@ public class Board {
         this.playerRow = playerRow;
         this.playerCol = playerCol;
         board = new Block[rows][cols];
-        for (int i = 0; i < rows; i++) {
+        /*for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (i == playerRow && j == playerCol) {
                     board[i][j] = new Player(i, j);
@@ -33,7 +33,8 @@ public class Board {
                     board[i][j] = block;
                 }
             }
-        }
+        }*/
+        generateHardcodedMaze();
     }
 
     public Block[][] callFunction(String function) {
@@ -92,5 +93,16 @@ public class Board {
         player.col = column;
         board[row][column] = player;
         System.out.println("moved");
+    }
+
+    public void generateHardcodedMaze() {
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                Block block = new Block(true, i, j);
+                int random = ThreadLocalRandom.current().nextInt(0, 10);
+                if (random == 0 && i != 0 && j != 0)
+                    block.name = "WALL";
+            }
+        }
     }
 }
