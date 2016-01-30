@@ -138,7 +138,7 @@ public class Compiler{
       return pos;
     }
     String line = code[pos];
-    while((line.compareTo("stop") == 0)&&(pos < code.length)){
+    while((line.compareTo("stop") != 0)&&(pos < code.length)){
       execute(line);
       pos++;
     }
