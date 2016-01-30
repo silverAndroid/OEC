@@ -11,13 +11,15 @@ public class Compiler{
   
   Board board;
   DrawB ux;
+  PApplet wind;
 
   private String[] keyWords = {"is it?", "is", "stop", "steps to", "move", "turn left", "turn right", "grab", "use", "look"};
   private int listSize = 75;
 
-  public Compiler(Board board, DrawB ux){
+  public Compiler(Board board, DrawB ux, PApplet wind){
     this.board = board;
     this.ux = ux;
+    this.wind = wind;
     subroutines = new String[listSize][listSize];
     vars = new String[listSize][2];
   }
@@ -35,6 +37,8 @@ public class Compiler{
         i = createSubroutine(line, i);
       }
     }
+    System.out.println("Run");
+    runProgram();
   }
   
   public void runProgram(){
@@ -43,7 +47,7 @@ public class Compiler{
     for(int i = 0; i < code.length; i++){
       
      String cmd = code[i];
-     
+     System.out.println(cmd);
      if(getCommand(cmd) == 3){
        cmd = cmd.substring(cmd.split(" ")[0].length() + 1);
        try{
@@ -76,22 +80,23 @@ public class Compiler{
       setVar(cmd);
     } else if(cmdID == 4){
      board.callFunction("move");
-     ux.drawBoard();
+     System.out.println("A");
+     draw();
     } else if(cmdID == 5){
      board.callFunction("turn left");
-     ux.drawBoard();
+     draw();
     } else if(cmdID == 6){
      board.callFunction("turn right");
-     ux.drawBoard();
+     draw();
     } else if(cmdID == 7){
      board.callFunction("grab");
-     ux.drawBoard();
+     draw();
     } else if(cmdID == 8){
      board.callFunction("use");
-     ux.drawBoard();
+     draw();
     } else if(cmdID == 9){
      board.callLookFunction();
-     ux.drawBoard();
+     draw();
     } else if(getCommand(cmd) == -1){
         executeSub(indexOfSub(cmd));
     }
@@ -225,5 +230,33 @@ public class Compiler{
       }
     }
     return -1;
+  }
+  
+  private void draw(){
+    System.out.println("D");
+  clear();
+  background(255, 255, 255);
+    
+  //Drawing lines for the board
+  for (int i = 0; i <= 680; i += 40)
+  {
+    line(310, i, 1110, i);
+  }
+  
+  for(int i = 310; i <= 1110; i+=40)
+  {
+    line(i, 0, i, 680);
+  }
+  
+  //Drawing components on the board
+  for(int i = 0; i < b.numRows; i++)
+  {
+    for(int j = 0; j < b.numCols; j++)
+    {
+      if (b.board[i][j] instanceof Player){image(b.getPlayer().getCurrentImage(), b.board[i][j].getX() + 310, b.board[i][j].getY());}
+      if (b.board[i][j] instanceof Wall){image(wall, b.board[i][j].getX() + 310, b.board[i][j].getY());}
+      if (b.board[i][j] instanceof Item){image(bana, b.board[i][j].getX() + 310, b.board[i][j].getY());}
+    }
+  }
   }
 }

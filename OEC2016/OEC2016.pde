@@ -11,6 +11,8 @@ Textarea inTextarea;
 Textarea outTextarea;
 Textarea itemTextarea;
 
+Compiler c;
+
 PImage wall;
 PImage bana;
 
@@ -23,8 +25,11 @@ void setup()
   
   size(1366, 695);
   
+  
   cp5 = new ControlP5(this);
   b = new Board(17, 20, 1, 0);
+  
+  c = new Compiler(b, new DrawB(), this);
   
   wall = loadImage("wall.png");
   bana = loadImage("banana.png");
@@ -123,7 +128,7 @@ public void controlEvent(ControlEvent theEvent)
 //Method that handles the text input for user code
 void keyPressed()
 {
-  if ( key >= 97 && key <= 122 || key == ENTER || key >= 48 && key <= 57 || key == 46 || key == 61 || key == 43 || key == 45)
+  if ( key >= 97 && key <= 122 || key == ENTER || key >= 48 && key <= 57 || key == 46 || key == 61 || key == 43 || key == 45  || key == 32)
   {
     sb.append( key );
     inTextarea.setText( sb.toString() );
@@ -171,21 +176,19 @@ public void Run()
   String input = cp5.get(Textarea.class,"in").getText();
   
   String lines[] = input.split("\\r?\\n");
-  
-  for(int i = 0; i < lines.length; i++)
-  {
-    println(lines[i]);
-  }
+  System.out.println(lines[0]);
+  c.sendProgram(lines);
 }
 
-class drawB
+class DrawB
 {
-  public drawB()
+  public DrawB()
   {
   }
   
   public void drawBoard()
   {
+    System.out.println("D");
     drawBoard();
   }
 }
