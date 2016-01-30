@@ -8,10 +8,20 @@ public class Player extends Block {
     public int direction;
     public ArrayList<Item> items;
 
+    private PImage rD1;
+    private PImage rD2;
+    private PImage rD3;
+    private PImage rD4;
+
     public Player(int row, int col) {
         super(true, row, col);
         direction = RIGHT;
         items = new ArrayList<Item>();
+  
+        rD1 = loadImage("Rdir1.png");
+        rD2 = loadImage("Rdir2.png");
+        rD3 = loadImage("Rdir3.png");
+        rD4 = loadImage("Rdir4.png");
     }
 
     public int[] getCoordinatesInFront() {
@@ -36,6 +46,19 @@ public class Player extends Block {
                 break;
         }
         return new int[]{y, x};
+    }
+
+    public PImage getCurrentImage() {
+        switch(direction) {
+            case UP:
+                return rD2;
+            case DOWN:
+                return rD4;
+            case LEFT:
+                return rD1;
+            default:
+                return rD3;
+        }
     }
 
     public void pickUpItem(Item item) {
