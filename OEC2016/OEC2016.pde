@@ -24,7 +24,7 @@ void setup()
   size(1366, 695);
   
   cp5 = new ControlP5(this);
-  b = new Board(17, 20, 1, 0);
+  b = new Board(17, 20, 0, 0);
   
   wall = loadImage("wall.png");
   bana = loadImage("banana.png");

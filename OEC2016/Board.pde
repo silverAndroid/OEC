@@ -17,24 +17,7 @@ public class Board {
     this.playerRow = playerRow;
     this.playerCol = playerCol;
     board = new Block[rows][cols];
-    /*for (int i = 0; i < rows; i++) {
-     for (int j = 0; j < cols; j++) {
-     if (i == playerRow && j == playerCol) {
-     board[i][j] = new Player(i, j);
-     } else {
-     int random = ThreadLocalRandom.current().nextInt(0, 2);
-     Block block = new Block(true, i, j);
-     try {
-     block.name = block.types[random];
-     } catch (ArrayIndexOutOfBoundsException ignored) {
-     
-     }
-     
-     board[i][j] = block;
-     }
-     }
-     }*/
-    generateHardcodedMaze();
+    generateMaze();
   }
 
   public Player getPlayer() {
@@ -88,7 +71,7 @@ public class Board {
   }
 
   private void movePlayer(int row, int column, Player player) {
-    if (board[row][column] instanceof Item || board[row][column] instanceof Wall) {
+    if (board[row][column] instanceof Wall) {
       throw new UncheckedException("Cannot move!");
     }
     playerRow = row;
@@ -101,7 +84,7 @@ public class Board {
     board[row][column] = player;
   }
 
-  public void generateHardcodedMaze() {
+  public void generateMaze() {
     for (int i = 0; i < numRows; i++) {
       for (int j = 0; j < numCols; j++) {
         Block block = new Block(true, i, j);
