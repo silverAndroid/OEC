@@ -18,7 +18,7 @@ StringBuilder sb;
 
 void setup()
 {
-  frameRate(30);
+  frameRate(60);
   startTime = millis();
   
   size(1366, 695);
