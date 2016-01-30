@@ -3,14 +3,14 @@ import java.lang.Integer;
 import java.lang.Exception;
 
 public class Compiler{
-  static String[] code;
-  static String[][] subroutines;
-  static int numSubroutines = 0;
-  static String[][] vars;
-  static int numVars = 0;
+  String[] code;
+  String[][] subroutines;
+  int numSubroutines = 0;
+  String[][] vars;
+  int numVars = 0;
 
-  private static String[] keyWords = {"is it?", "is", "stop", "steps to", "move", "turn left", "turn right", "grab", "use", "look"};
-  private static int listSize = 75;
+  private String[] keyWords = {"is it?", "is", "stop", "steps to", "move", "turn left", "turn right", "grab", "use", "look"};
+  private int listSize = 75;
 
   public Compiler(){
     subroutines = new String[listSize][listSize];
@@ -66,7 +66,7 @@ public class Compiler{
     vars = new String[listSize][2];
   }
   
-  public static void execute(String cmd){
+  public void execute(String cmd){
     int cmdID = getCommand(cmd);
     if(cmdID == 1){
       //decleration
@@ -85,19 +85,18 @@ public class Compiler{
     }
   }
   
-  public static void executeSub(int routineIndex){
-    String routineID = subroutines[routineIndex)][0];
+  public void executeSub(int routineIndex){
+    String routineID = subroutines[routineIndex][0];
     String[] routineComp = routineID.split(" ");
-    int  = Integer.parseInt(routineComp[routineComp.length - 1]);
-    int subLength = 
+    int subLength = Integer.parseInt(routineComp[routineComp.length - 1]);
   }
   
-  public static int executeCond(String cmd, int pos){
+  public int executeCond(String cmd, int pos){
     
     return pos;
   }
   
-  private static int getCommand(String line){
+  private int getCommand(String line){
     int indexOfWord = -1;
     for(int i = 0; i < keyWords.length; i++){
       if( line.indexOf(keyWords[i]) != -1 ){
@@ -108,7 +107,7 @@ public class Compiler{
     return indexOfWord;
   }
 
-  private static void createVar(String line){
+  private void createVar(String line){
     String varName;
     varName = line.split(" is ")[0];
     if(!searchKey(vars, varName, numVars)){
@@ -117,7 +116,7 @@ public class Compiler{
     }
   }
 
-  private static int createSubroutine(String line, int pos){
+  private int createSubroutine(String line, int pos){
     String routineName;
     routineName = line.substring(9);
     System.out.println("Routine mande -- " + routineName);
@@ -156,7 +155,7 @@ public class Compiler{
     return pos-1;
   }
 
-  private static boolean startsWithInt(String line){
+  private boolean startsWithInt(String line){
     try{
       Integer.parseInt(line.split(" ")[0].replace(".", ""));
       return true;
@@ -165,7 +164,7 @@ public class Compiler{
     }
   }
 
-  private static boolean searchKey(String[][] src, String key, int size){
+  private boolean searchKey(String[][] src, String key, int size){
     for(int i = 0; i < size; i++){
       if(src[i][0].compareTo(key) == 0){
         return true;
@@ -174,7 +173,7 @@ public class Compiler{
     return false;
   }
   
-  public static int indexOfKey(String[][] src, String key, int size){
+  public int indexOfKey(String[][] src, String key, int size){
     for(int i = 0; i < size; i++){
       if(src[i][0].compareTo(key) == 0){
         return i;
@@ -183,35 +182,12 @@ public class Compiler{
     return -1;
   }
   
-  public static int indexOfSub(String subroutine){
+  public int indexOfSub(String subroutine){
     for(int i = 0; i < numSubroutines; i++){
       if(subroutines[i][0].startsWith(subroutine)){
         return i;
       }
     }
     return -1;
-  }
-  
-  public static void main(String[] args){
-    Compiler comp = new Compiler();
-    String[] program = {"block is look", "steps to walks", "1. block is look", "2. block is it? path", "move", "stop", "3. walks", "block is it? empty", "turn left","steps to run", "1. fancy is me", "2. fuck you"};
-    comp.sendProgram(program);
-System.out.println("vars");
-    for(int i = 0; i < numVars; i++){
-      for(int j = 0; j < vars[i].length; j++){
-        if(vars[i][j] != null){
-          System.out.println(vars[i][j]);
-        }
-      }
-    }
-System.out.println("Subs");
-        for(int i = 0; i < numSubroutines; i++){
-          for(int j = 0; j < subroutines[i].length; j++){
- 
-              System.out.println(subroutines[i][j]);
-            
-          }
-        }
-        System.out.println("END");
   }
 }
