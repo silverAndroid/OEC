@@ -128,7 +128,7 @@ public void controlEvent(ControlEvent theEvent)
 //Method that handles the text input for user code
 void keyPressed()
 {
-  if ( key >= 97 && key <= 122 || key == ENTER || key >= 48 && key <= 57 || key == 46 || key == 61 || key == 43 || key == 45  || key == 32)
+  if ( key >= 97 && key <= 122 || key == ENTER || key >= 48 && key <= 57 || key == 46 || key == 61 || key == 43 || key == 45  || key == 32 || key == 63)
   {
     sb.append( key );
     inTextarea.setText( sb.toString() );

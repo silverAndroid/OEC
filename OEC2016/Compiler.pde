@@ -103,6 +103,7 @@ public class Compiler{
   }
   
   public void executeSub(int routineIndex){
+    System.out.println("Sub");
     String routineID = subroutines[routineIndex][0];
     String[] routineComp = routineID.split(" ");
     int subLength = Integer.parseInt(routineComp[routineComp.length - 1]);
@@ -113,7 +114,29 @@ public class Compiler{
   }
   
   public int executeCond(String cmd, int pos){
+    System.out.println("Condition");
     pos++;
+    boolean valid;
+    String[] cmdComp = cmd.split(keyWords[0]);
+    
+    String cmpVal = cmdComp[1];
+    
+    if(cmpVal.compareTo("look") == 0){
+      Block b = board.callLookFunction(); 
+      if(b instanceof Wall){
+        cmpVal = "wall";
+      } else if(b instanceof Item){
+       cmpVal = "item"; 
+      } else {
+       cmpVal = "empty";
+      }
+    }
+    
+    valid = (vars[indexOfKey(vars, cmdComp[0], numVars)][1].compareTo(cmpVal) == 0);
+    System.out.println(valid);
+    if(!valid){
+      return pos;
+    }
     String line = code[pos];
     while((line.compareTo("stop") == 0)&&(pos < code.length)){
       execute(line);
