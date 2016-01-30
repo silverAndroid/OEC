@@ -1,10 +1,6 @@
 public class Item extends Block {
 
-    private final String itemName;
-
-    public Item(int row, int col, String name) {
+    public Item(int row, int col) {
         super(true, row, col);
-        this.name = "ITEM";
-        itemName = name;
     }
 }

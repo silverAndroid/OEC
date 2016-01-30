@@ -11,10 +11,6 @@ Textarea inTextarea;
 Textarea outTextarea;
 Textarea itemTextarea;
 
-PImage rD1;
-PImage rD2;
-PImage rD3;
-PImage rD4;
 PImage wall;
 PImage bana;
 
@@ -30,10 +26,6 @@ void setup()
   cp5 = new ControlP5(this);
   b = new Board(17, 20, 1, 0);
   
-  rD1 = loadImage("Rdir1.png");
-  rD2 = loadImage("Rdir2.png");
-  rD3 = loadImage("Rdir3.png");
-  rD4 = loadImage("Rdir4.png");
   wall = loadImage("wall.png");
   bana = loadImage("banana.png");
   
@@ -165,8 +157,8 @@ void drawBoard()
     for(int j = 0; j < b.numCols; j++)
     {
       println(i + " " + j);
-      if (b.board[i][j] instanceof Player){image(rD4, b.board[i][j].getX() + 310, b.board[i][j].getY());}
-      if (b.board[i][j].name.equals("WALL")){image(wall, b.board[i][j].getX() + 310, b.board[i][j].getY());}
+      if (b.board[i][j] instanceof Player){image(b.getPlayer().getCurrentImage(), b.board[i][j].getX() + 310, b.board[i][j].getY());}
+      if (b.board[i][j] instanceof Wall){image(wall, b.board[i][j].getX() + 310, b.board[i][j].getY());}
       if (b.board[i][j] instanceof Item){image(bana, b.board[i][j].getX() + 310, b.board[i][j].getY());}
     }
   }
