@@ -11,7 +11,7 @@ public class Player extends Block {
     public Player(int row, int col) {
         super(true, row, col);
         direction = UP;
-        items = new ArrayList<>();
+        items = new ArrayList<Item>();
     }
 
     public int[] getCoordinatesInFront() {
