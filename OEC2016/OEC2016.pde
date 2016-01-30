@@ -109,10 +109,9 @@ void setup()
 
 void draw()
 {
-  clear();
   background(255, 255, 255);
   drawBoard();
-  
+
   infoLabel.draw(this);
   
   fill(#790507);
@@ -147,7 +146,9 @@ void keyPressed()
 //Method to draw the board
 void drawBoard()
 {
-  
+  clear();
+  background(255, 255, 255);
+    
   //Drawing lines for the board
   for (int i = 0; i <= 680; i += 40)
   {
@@ -164,14 +165,11 @@ void drawBoard()
   {
     for(int j = 0; j < b.numCols; j++)
     {
-      println(i + " " + j);
       if (b.board[i][j] instanceof Player){image(rD4, b.board[i][j].getX() + 310, b.board[i][j].getY());}
       if (b.board[i][j].name.equals("WALL")){image(wall, b.board[i][j].getX() + 310, b.board[i][j].getY());}
       if (b.board[i][j] instanceof Item){image(bana, b.board[i][j].getX() + 310, b.board[i][j].getY());}
     }
   }
-  
-  
 }
 
 //Method that is invoked when the "Run" button is pressed
@@ -185,5 +183,17 @@ public void Run()
   for(int i = 0; i < lines.length; i++)
   {
     println(lines[i]);
+  }
+}
+
+class drawB
+{
+  public drawB()
+  {
+  }
+  
+  public void drawBoard()
+  {
+    drawBoard();
   }
 }
