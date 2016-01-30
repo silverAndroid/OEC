@@ -9,15 +9,26 @@ Textarea inTextarea;
 Textarea outTextarea;
 Textarea itemTextarea;
 
+PImage rD1;
+PImage rD2;
+PImage rD3;
+PImage rD4;
+
 StringBuilder sb;
 
 void setup()
 {
+  frameRate(30);
   startTime = millis();
   
   size(1366, 695);
   
   cp5 = new ControlP5(this);
+  
+  rD1 = loadImage("Rdir1.png");
+  rD2 = loadImage("Rdir2.png");
+  rD3 = loadImage("Rdir3.png");
+  rD4 = loadImage("Rdir4.png");
   
   //create a new button with name 'button'
   cp5.addButton("Run")
@@ -114,6 +125,7 @@ public void controlEvent(ControlEvent theEvent)
 {
 }
 
+//Method that handles the text input for user code
 void keyPressed()
 {
   if (key != BACKSPACE)
@@ -128,6 +140,7 @@ void keyPressed()
   }
 }
 
+//Method to draw the lines of the board
 void drawBoard()
 {
   for (int i = 0; i <= 680; i += 40)
@@ -141,6 +154,7 @@ void drawBoard()
   }
 }
 
+//Method that is invoked when the "Run" button is pressed
 public void Run()
 {
   if (millis()-startTime < 1000){return;}
