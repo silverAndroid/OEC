@@ -13,6 +13,7 @@ PImage rD1;
 PImage rD2;
 PImage rD3;
 PImage rD4;
+PImage wall;
 
 StringBuilder sb;
 
@@ -29,6 +30,7 @@ void setup()
   rD2 = loadImage("Rdir2.png");
   rD3 = loadImage("Rdir3.png");
   rD4 = loadImage("Rdir4.png");
+  wall = loadImage("wall.png");
   
   //create a new button with name 'button'
   cp5.addButton("Run")
@@ -116,9 +118,6 @@ void draw()
   
   stroke(0);
   line(300, 10, 300, 685); //Line Seperation between Interface and Graphics
-  
-  
-  
 }
 
 public void controlEvent(ControlEvent theEvent)
