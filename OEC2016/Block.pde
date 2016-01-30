@@ -17,10 +17,10 @@ public class Block {
     }
 
     public int getX() {
-        return row * PIXEL_SIZE;
+        return col * PIXEL_SIZE;
     }
 
     public int getY() {
-        return col * PIXEL_SIZE;
+        return row * PIXEL_SIZE;
     }
 }

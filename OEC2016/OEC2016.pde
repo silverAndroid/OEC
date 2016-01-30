@@ -1,7 +1,9 @@
 import controlP5.*;
 
 int startTime;
+
 ControlP5 cp5;
+Board b;
 
 Textlabel infoLabel;
 Textlabel outLabel;
@@ -14,6 +16,7 @@ PImage rD2;
 PImage rD3;
 PImage rD4;
 PImage wall;
+PImage bana;
 
 StringBuilder sb;
 
@@ -25,12 +28,14 @@ void setup()
   size(1366, 695);
   
   cp5 = new ControlP5(this);
+  b = new Board(17, 20, 1, 0);
   
   rD1 = loadImage("Rdir1.png");
   rD2 = loadImage("Rdir2.png");
   rD3 = loadImage("Rdir3.png");
   rD4 = loadImage("Rdir4.png");
   wall = loadImage("wall.png");
+  bana = loadImage("banana.png");
   
   //create a new button with name 'button'
   cp5.addButton("Run")
@@ -127,7 +132,7 @@ public void controlEvent(ControlEvent theEvent)
 //Method that handles the text input for user code
 void keyPressed()
 {
-  if ( key >= 97 && key <= 122 || key == ENTER)
+  if ( key >= 97 && key <= 122 || key == ENTER || key >= 48 && key <= 57 || key == 46 || key == 61 || key == 43 || key == 45)
   {
     sb.append( key );
     inTextarea.setText( sb.toString() );
@@ -139,9 +144,11 @@ void keyPressed()
   }
 }
 
-//Method to draw the lines of the board
+//Method to draw the board
 void drawBoard()
 {
+  
+  //Drawing lines for the board
   for (int i = 0; i <= 680; i += 40)
   {
     line(310, i, 1110, i);
@@ -151,6 +158,20 @@ void drawBoard()
   {
     line(i, 0, i, 680);
   }
+  
+  //Drawing components on the board
+  for(int i = 0; i < b.numRows; i++)
+  {
+    for(int j = 0; j < b.numCols; j++)
+    {
+      println(i + " " + j);
+      if (b.board[i][j] instanceof Player){image(rD4, b.board[i][j].getX() + 310, b.board[i][j].getY());}
+      if (b.board[i][j].name.equals("WALL")){image(wall, b.board[i][j].getX() + 310, b.board[i][j].getY());}
+      if (b.board[i][j] instanceof Item){image(bana, b.board[i][j].getX() + 310, b.board[i][j].getY());}
+    }
+  }
+  
+  
 }
 
 //Method that is invoked when the "Run" button is pressed

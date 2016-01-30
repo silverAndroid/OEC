@@ -10,7 +10,7 @@ public class Player extends Block {
 
     public Player(int row, int col) {
         super(true, row, col);
-        direction = UP;
+        direction = RIGHT;
         items = new ArrayList<Item>();
     }
 

@@ -99,9 +99,16 @@ public class Board {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 Block block = new Block(true, i, j);
+                if (i == playerRow && j == playerCol) {
+                    board[i][j] = new Player(i, j);
+                }
+                else
+                { 
                 int random = ThreadLocalRandom.current().nextInt(0, 10);
                 if (random == 0 && i != 0 && j != 0)
                     block.name = "WALL";
+                board[i][j] = block;
+                }
             }
         }
     }
