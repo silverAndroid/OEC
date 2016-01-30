@@ -8,11 +8,16 @@ public class Compiler{
   int numSubroutines = 0;
   String[][] vars;
   int numVars = 0;
+  
+  Board board;
+  DrawB ux;
 
   private String[] keyWords = {"is it?", "is", "stop", "steps to", "move", "turn left", "turn right", "grab", "use", "look"};
   private int listSize = 75;
 
-  public Compiler(){
+  public Compiler(Board board, DrawB ux){
+    this.board = board;
+    this.ux = ux;
     subroutines = new String[listSize][listSize];
     vars = new String[listSize][2];
   }
@@ -24,7 +29,6 @@ public class Compiler{
     for(int i = 0; i < code.length; i++){
       String line = code[i];
       int instruction = getCommand(line);
-      System.out.println(instruction + "  -  " + line);
       if(instruction == 1){
        createVar(line); 
       } else if(instruction == 3){
@@ -50,9 +54,9 @@ public class Compiler{
        }catch(Exception e){ }      
      } else {
        if(getCommand(cmd) == -1){
-        //sub 
+        executeSub(indexOfSub(cmd));
        } else if(getCommand(cmd) == 0){
-         
+         i = executeCond(cmd, i);
        } else {
          execute(cmd);
        }
@@ -69,19 +73,27 @@ public class Compiler{
   public void execute(String cmd){
     int cmdID = getCommand(cmd);
     if(cmdID == 1){
-      //decleration
+      setVar(cmd);
     } else if(cmdID == 4){
-     //playe.move 
+     board.callFunction("move");
+     ux.drawBoard();
     } else if(cmdID == 5){
-     //playe.left 
+     board.callFunction("turn left");
+     ux.drawBoard();
     } else if(cmdID == 6){
-     //playe.right 
+     board.callFunction("turn right");
+     ux.drawBoard();
     } else if(cmdID == 7){
-      //grab
+     board.callFunction("grab");
+     ux.drawBoard();
     } else if(cmdID == 8){
-      //use
+     board.callFunction("use");
+     ux.drawBoard();
     } else if(cmdID == 9){
-     //look 
+     board.callLookFunction();
+     ux.drawBoard();
+    } else if(getCommand(cmd) == -1){
+        executeSub(indexOfSub(cmd));
     }
   }
   
@@ -89,11 +101,35 @@ public class Compiler{
     String routineID = subroutines[routineIndex][0];
     String[] routineComp = routineID.split(" ");
     int subLength = Integer.parseInt(routineComp[routineComp.length - 1]);
+    for(int i = 1; i <= subLength; i++){
+     String cmd = subroutines[routineIndex][i];
+     execute(cmd);
+    }
   }
   
   public int executeCond(String cmd, int pos){
-    
+    pos++;
+    String line = code[pos];
+    while((line.compareTo("stop") == 0)&&(pos < code.length)){
+      execute(line);
+      pos++;
+    }
     return pos;
+  }
+  
+  public void setVar(String cmd){
+    cmd.replace("is", "~");
+    String[] cmdComp = cmd.split("~");
+    
+    String newVal;
+    String oldVal = vars[indexOfKey(vars, cmdComp[0], numVars)][1];
+    
+    if(cmdComp[1].startsWith("+")){
+      int tmp = Integer.parseInt(cmdComp[1].replace("+", ""));
+      newVal = Integer.toString(Integer.parseInt(oldVal) + tmp);
+    }
+    
+    vars[indexOfKey(vars, cmdComp[0], numVars)][1] = cmdComp[1];
   }
   
   private int getCommand(String line){
