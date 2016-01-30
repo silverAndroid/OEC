@@ -7,6 +7,7 @@ Textlabel infoLabel;
 Textlabel outLabel;
 Textarea inTextarea;
 Textarea outTextarea;
+Textarea itemTextarea;
 
 StringBuilder sb;
 
@@ -38,7 +39,7 @@ void setup()
                   .setColorForeground(255);
                   ;
                   
-   outTextarea = cp5.addTextarea("ou")
+   outTextarea = cp5.addTextarea("out")
                   .setPosition(10,height - 45)
                   .setSize(280, 30)
                   .setFont(createFont("arial",12))
@@ -48,19 +49,38 @@ void setup()
                   .setColorActive(0) 
                   .setColorForeground(0);
                   ;
+                  
+   itemTextarea = cp5.addTextarea("item")
+                  .setPosition(1125, 55)
+                  .setSize(225, 620)
+                  .setFont(createFont("arial",12))
+                  .setLineHeight(14)
+                  .setColor(color(128))
+                  .setColorBackground(255)
+                  .setColorActive(0) 
+                  .setColorForeground(0);
+                  ;
      
-  //Title label for "Interface"
-  infoLabel = cp5.addTextlabel("label")
+  //Title label for "Writing Code"
+  infoLabel = cp5.addTextlabel("inlabel")
                     .setText("Write Code")
                     .setPosition(5,10)
                     .setColorValue(0)
                     .setFont(createFont("Corbel",30))
                     ;
                     
-   //Title label for "Output"
+   //Title label for "Message from Robot"
    outLabel = cp5.addTextlabel("outLabel")
                     .setText("Message from Robot")
                     .setPosition(5,height - 80)
+                    .setColorValue(0)
+                    .setFont(createFont("Corbel",30))
+                    ;
+                    
+  //Title label for "Things Robot Has"
+  infoLabel = cp5.addTextlabel("itemLabel")
+                    .setText("Items on Robot")
+                    .setPosition(1120,10)
                     .setColorValue(0)
                     .setFont(createFont("Corbel",30))
                     ;
@@ -80,6 +100,7 @@ void draw()
   fill(#790507);
   stroke(#CECECE);
   rect(5, 45, 290, 570);
+  rect(1120, 45, 235, 635);
   rect(5, height - 50 , 290, 40);
   
   stroke(0);
